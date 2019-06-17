@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Simple Leaflet Map</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- load the Leaflet library and stylesheet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* give the map container a height */
+    #map {
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="map"></div>
+
+
+  <script>
+    // initialize the map
+    const map = L.map('map').setView([39.55, -117.0667], 8)
+
+    // load tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18
+    }).addTo(map)
+
+    // add marker
+    const marker = L.marker([39.55, -117.0667]).addTo(map)
+
+    // add line
+    const line = L.polyline([
+      [39.55, -117.0667],
+      [39.80, -117.25],
+      [40.01, -118.1]
+    ], { color: 'purple' }).addTo(map)
+
+    // add polygon
+    const poly = L.polygon([
+      [39.55, -117.0667],
+      [37.55, -116.00],
+      [38, -115]
+    ], { color: 'red' }).addTo(map)
+  </script>
+</body>
+</html>
