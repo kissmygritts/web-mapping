@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mapbox GL JS Intro</title>
+
+
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
+
+  <style>
+    /* set the style for a full screen map */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+  
+    #map {
+      height: 100vh;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div id="map"></div>
+  
+  <script>
+    mapboxgl.accessToken = 'your token here'
+    
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/outdoors-v10',
+      center: [-116.77592011899117, 38.64954285997146],
+      zoom: 6
+    })
+
+    map.on('load', function () {
+      map.addSource('nvcounties', {
+        type: 'vector',
+        tiles: ['http://localhost:8080/data/nv-counties/{z}/{x}/{y}.pbf']
+      })
+      map.addLayer({
+        'id': 'nvcounties',
+        'type': 'line',
+        'source': 'nvcounties',
+        'source-layer': 'nvcounties',
+        'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#660099',
+          'line-width': 4
+        }
+      })
+    })
+  </script>
+
+</body>
+</html>
